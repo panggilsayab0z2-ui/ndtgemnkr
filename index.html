@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secret Birthday Club 💙</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+:root {
+  --navy:#101b43;
+  --blue:#668cff;
+  --sky:#dceaff;
+  --white:#ffffff;
+  --pink:#ffd8ee;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  font-family:'DM Sans',sans-serif;
+  color:var(--navy);
+  background:
+    radial-gradient(circle at 15% 20%,#c8ddff 0,transparent 30%),
+    radial-gradient(circle at 90% 80%,#e6d7ff 0,transparent 30%),
+    #f5f8ff;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+button,input { font:inherit; }
+
+button {
+  border:0;
+  cursor:pointer;
+  transition:.25s;
+}
+
+button:hover { transform:translateY(-3px) scale(1.02); }
+button:active { transform:scale(.96); }
+
+.hidden { display:none !important; }
+
+.stars {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+}
+
+.star {
+  position:absolute;
+  color:white;
+  opacity:.8;
+  animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from { opacity:.25; transform:scale(.7); }
+  to { opacity:1; transform:scale(1.2); }
+}
+
+.screen {
+  width:min(900px,92%);
+  margin:auto;
+  position:relative;
+  z-index:1;
+}
+
+#loginScreen {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 0;
+}
+
+.login-card {
+  width:min(430px,100%);
+  padding:35px 28px;
+  text-align:center;
+  border:1px solid #ffffffd9;
+  background:#ffffffb8;
+  backdrop-filter:blur(20px);
+  border-radius:32px;
+  box-shadow:0 25px 80px #7696d82a;
+  animation:appear .8s ease;
+}
+
+@keyframes appear {
+  from { opacity:0; transform:translateY(25px); }
+  to { opacity:1; transform:translateY(0); }
+}
+
+.lock-icon {
+  width:94px;
+  height:94px;
+  margin:0 auto 18px;
+  display:grid;
+  place-items:center;
+  font-size:43px;
+  border-radius:30px;
+  background:linear-gradient(135deg,#dceaff,#f1e6ff);
+  box-shadow:0 12px 30px #8da9e52b;
+  animation:bob 3s infinite ease-in-out;
+}
+
+@keyframes bob {
+  0%,100% { transform:translateY(0) rotate(-3deg); }
+  50% { transform:translateY(-8px) rotate(3deg); }
+}
+
+.tag {
+  display:inline-block;
+  background:#e4edff;
+  color:#5274bd;
+  border-radius:100px;
+  padding:8px 14px;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:2px;
+}
+
+h1,h2,h3 {
+  font-family:'Playfair Display',serif;
+}
+
+.login-card h1 {
+  font-size:clamp(28px,6vw,38px);
+  margin:17px 0 10px;
+}
+
+.sub {
+  color:#7483a5;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.field {
+  text-align:left;
+  margin:18px 0;
+}
+
+.field label {
+  display:block;
+  margin:0 0 8px 4px;
+  font-size:12px;
+  font-weight:700;
+  color:#52658f;
+}
+
+.field input {
+  width:100%;
+  padding:15px 17px;
+  border:1.5px solid #dce5fa;
+  border-radius:15px;
+  outline:none;
+  background:#f9fbff;
+  color:var(--navy);
+}
+
+.field input:focus {
+  border-color:#7598ff;
+  box-shadow:0 0 0 4px #7598ff20;
+}
+
+.main-btn {
+  width:100%;
+  padding:16px;
+  border-radius:16px;
+  color:white;
+  font-weight:700;
+  background:linear-gradient(120deg,#759bff,#9a83ef);
+  box-shadow:0 10px 25px #7798f547;
+}
+
+.hint {
+  margin-top:18px;
+  color:#98a5c2;
+  font-size:11px;
+}
+
+#error {
+  color:#df6097;
+  font-size:13px;
+  min-height:18px;
+  margin:10px 0;
+}
+
+#birthdayScreen {
+  display:none;
+  padding:30px 0 70px;
+  animation:appear .8s ease;
+}
+
+.topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:35px;
+}
+
+.logo {
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:2px;
+}
+
+.music-btn {
+  border-radius:100px;
+  padding:11px 15px;
+  color:#4c68a4;
+  background:white;
+  box-shadow:0 5px 18px #7892c41b;
+}
+
+.hero {
+  text-align:center;
+  padding:40px 0 35px;
+}
+
+.eyebrow {
+  color:#7790ce;
+  font-weight:700;
+  letter-spacing:3px;
+  font-size:11px;
+}
+
+.hero h1 {
+  font-size:clamp(40px,8vw,75px);
+  line-height:1.1;
+  margin:20px 0;
+  background:linear-gradient(120deg,#304c9b,#7c8cff,#b17ee8);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.hero p {
+  max-width:520px;
+  margin:0 auto;
+  line-height:1.9;
+  color:#7583a2;
+  font-size:15px;
+}
+
+.badge {
+  display:inline-block;
+  margin-top:20px;
+  background:white;
+  padding:12px 18px;
+  border-radius:100px;
+  box-shadow:0 7px 22px #849cc61a;
+  font-size:13px;
+}
+
+.section {
+  margin:25px 0;
+  padding:28px;
+  background:#ffffffc9;
+  border:1px solid #ffffff;
+  border-radius:26px;
+  box-shadow:0 15px 45px #6f8fc51a;
+}
+
+.section-title {
+  margin:0 0 8px;
+  font-size:25px;
+}
+
+.section-desc {
+  margin:0 0 23px;
+  color:#8390ab;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.gift-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.gift {
+  min-height:145px;
+  border-radius:20px;
+  padding:18px 8px;
+  background:linear-gradient(145deg,#eef4ff,#e6e8ff);
+  color:#5068a5;
+  border:1px solid white;
+}
+
+.gift:nth-child(2n) {
+  background:linear-gradient(145deg,#fff0fa,#e9eaff);
+}
+
+.gift .emoji {
+  display:block;
+  font-size:36px;
+  margin-bottom:12px;
+}
+
+.gift strong {
+  font-size:12px;
+}
+
+.gift small {
+  display:block;
+  font-size:10px;
+  margin-top:6px;
+  color:#8c98b6;
+}
+
+.interactive-box {
+  text-align:center;
+  padding:25px 15px;
+  background:linear-gradient(140deg,#e7f0ff,#f4eaff);
+  border-radius:22px;
+}
+
+.big-emoji {
+  font-size:68px;
+  margin:15px 0;
+  display:block;
+}
+
+.pill-btn {
+  background:white;
+  color:#536ba7;
+  padding:13px 20px;
+  border-radius:100px;
+  font-size:13px;
+  font-weight:700;
+  margin:5px;
+  box-shadow:0 5px 15px #6679b31c;
+}
+
+.pill-btn.primary {
+  color:white;
+  background:linear-gradient(120deg,#7196ff,#a28be9);
+}
+
+.message {
+  text-align:center;
+  line-height:2;
+  color:#647496;
+  font-size:14px;
+}
+
+.envelope {
+  font-size:70px;
+  display:block;
+  margin:20px;
+  animation:bob 2s infinite;
+}
+
+.letter {
+  padding:22px;
+  background:#f5f7ff;
+  border-radius:18px;
+  text-align:left;
+  line-height:2;
+  font-size:14px;
+  color:#657392;
+  animation:appear .5s ease;
+}
+
+.cake {
+  font-size:90px;
+  display:block;
+  margin:15px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.cake:hover { transform:scale(1.12) rotate(-4deg); }
+
+.progress {
+  height:8px;
+  background:#e5eaff;
+  border-radius:50px;
+  overflow:hidden;
+  margin:15px 0;
+}
+
+.progress div {
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#6f9bff,#bd8ff4);
+  transition:.4s;
+}
+
+.question {
+  font-size:18px;
+  font-weight:700;
+  margin:20px 0;
+}
+
+.answers {
+  display:grid;
+  gap:10px;
+}
+
+.answer {
+  padding:14px;
+  background:white;
+  border:1px solid #e1e8fb;
+  border-radius:14px;
+  color:#62739b;
+  text-align:left;
+}
+
+.answer:hover {
+  background:#edf2ff;
+}
+
+#quizFeedback {
+  min-height:25px;
+  margin-top:14px;
+  font-size:13px;
+  color:#7188c9;
+}
+
+.reasons {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.reason {
+  padding:17px;
+  border-radius:17px;
+  background:#f1f5ff;
+  font-size:13px;
+  line-height:1.8;
+  color:#647496;
+}
+
+.reason span {
+  font-size:24px;
+  display:block;
+  margin-bottom:8px;
+}
+
+footer {
+  text-align:center;
+  padding:30px 0;
+  color:#95a2bf;
+  font-size:12px;
+  line-height:2;
+}
+
+.modal {
+  position:fixed;
+  inset:0;
+  background:#111b43a8;
+  backdrop-filter:blur(9px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:20;
+}
+
+.modal.show { display:flex; }
+
+.modal-card {
+  max-width:420px;
+  width:100%;
+  text-align:center;
+  background:white;
+  padding:30px 24px;
+  border-radius:28px;
+  box-shadow:0 20px 80px #111b4340;
+  animation:appear .4s ease;
+}
+
+.modal-card h2 { font-size:28px; }
+
+.modal-card p {
+  color:#7785a4;
+  line-height:1.9;
+  font-size:14px;
+}
+
+#confettiLayer {
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:50;
+  overflow:hidden;
+}
+
+.confetti {
+  position:absolute;
+  top:-20px;
+  animation:fall 3.5s linear forwards;
+  font-size:20px;
+}
+
+@keyframes fall {
+  to { transform:translateY(110vh) rotate(720deg); opacity:0; }
+}
+
+#toast {
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%) translateY(100px);
+  background:#182650;
+  color:white;
+  padding:13px 20px;
+  border-radius:100px;
+  font-size:13px;
+  transition:.4s;
+  z-index:80;
+  max-width:90%;
+  text-align:center;
+}
+
+#toast.show { transform:translateX(-50%) translateY(0); }
+
+@media(max-width:520px) {
+  .login-card { padding:28px 20px; }
+  .section { padding:21px 16px; }
+  .gift-grid { grid-template-columns:repeat(2,1fr); }
+  .gift { min-height:130px; }
+  .reasons { grid-template-columns:1fr; }
+  .hero { padding-top:20px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+<div id="confettiLayer"></div>
+<div id="toast"></div>
+
+<!-- HALAMAN RAHASIA -->
+<div id="loginScreen">
+  <div class="screen">
+    <div class="login-card">
+      <div class="lock-icon">🔐</div>
+      <span class="tag">TOP SECRET · 0018</span>
+
+      <h1>Oops... private area!</h1>
+
+      <p class="sub">
+        Halaman ini khusus untuk seseorang yang sedang
+        bertambah level menjadi 18 tahun.
+      </p>
+
+      <form id="loginForm">
+        <div class="field">
+          <label>USERNAME</label>
+          <input id="username" placeholder="masukkan username" required>
+        </div>
+
+        <div class="field">
+          <label>PASSWORD</label>
+          <input id="password" type="password" placeholder="masukkan password" required>
+        </div>
+
+        <div id="error"></div>
+
+        <button class="main-btn" type="submit">
+          Unlock the secret 💌
+        </button>
+      </form>
+
+      <div class="hint">
+        tebak -LLlllbbell
+      </div>
+      <div class="hint">kayaknya terlalu mudah deh.</div>
+    </div>
+  </div>
+</div>
+
+<!-- WEBSITE SETELAH LOGIN -->
+<main class="screen" id="birthdayScreen">
+
+  <div class="topbar">
+    <div class="logo">✦ BIRTHDAY CLUB</div>
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+      ♫ Play vibes
+    </button>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">A VERY SPECIAL DAY · 0018</div>
+
+    <h1>Happy 18th<br>Birthday! 💙</h1>
+
+    <p>
+      Hari ini dunia kedatangan versi terbaru kamu:
+      lebih dewasa, makin keren, tapi tetap harus lucu. 🫵🏻
+    </p>
+
+    <div class="badge">🩵 18 years of being YOU 🩵</div>
+  </header>
+
+  <section class="section">
+    <h2 class="section-title">Welcome to your little universe ✨</h2>
+    <p class="section-desc">
+      Karena kamu sudah berhasil membuka halaman rahasia ini,
+      kamu berhak mendapatkan beberapa kejutan.
+      Klik semuanya, jangan cuma diliatin! 👀
+    </p>
+
+    <div class="gift-grid">
+      <button class="gift" onclick="openModal('gift1')">
+        <span class="emoji">🎁</span>
+        <strong>Gift no. 01</strong>
+        <small>open me!</small>
+      </button>
+
+      <button class="gift" onclick="openModal('gift2')">
+        <span class="emoji">🧸</span>
+        <strong>Gift no. 02</strong>
+        <small>something cute</small>
+      </button>
+
+      <button class="gift" onclick="openModal('gift3')">
+        <span class="emoji">💎</span>
+        <strong>Gift no. 03</strong>
+        <small>your energy</small>
+      </button>
+
+      <button class="gift" onclick="openModal('gift4')">
+        <span class="emoji">🌷</span>
+        <strong>Gift no. 04</strong>
+        <small>a little flower</small>
+      </button>
+
+      <button class="gift" onclick="openModal('gift5')">
+        <span class="emoji">💌</span>
+        <strong>Gift no. 05</strong>
+        <small>secret letter</small>
+      </button>
+
+      <button class="gift" onclick="openModal('gift6')">
+        <span class="emoji">🌙</span>
+        <strong>Gift no. 06</strong>
+        <small>make a wish</small>
+      </button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">🎂 Birthday ritual</h2>
+    <p class="section-desc">
+      Katanya kalau umur 18 harus ada ritualnya.
+      Klik kuenya dan tiup lilin virtualnya! 
+    </p>
+
+    <div class="interactive-box">
+      <span class="cake" id="cake" onclick="blowCandles()">🎂</span>
+      <h3 id="cakeTitle">Make a wish, birthday girl!</h3>
+      <p class="sub" id="cakeText">Tekan kuenya untuk memulai ✨</p>
+      <button class="pill-btn primary" onclick="blowCandles()">
+        Tiup lilinnya! 🕯️
+      </button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">💌 A little letter for you</h2>
+    <p class="section-desc">
+      Ada sesuatu yang mau disampaikan oleh temanmu ini.
+    </p>
+
+    <div class="interactive-box">
+      <span class="envelope">💌</span>
+      <p class="sub">Surat kecil, tapi isinya tulus.</p>
+      <button class="pill-btn primary" onclick="toggleLetter()">
+        Open my letter ♡
+      </button>
+
+      <div id="letterContent" class="letter hidden" style="margin-top:20px">
+        <strong>Dear ENGINEEE, </strong>
+        <p>
+          Happy birthday yang ke-18 yaaa! 🥳
+          Selamat memasuki chapter baru dalam hidupmu.
+          Semoga di umur yang baru ini kamu selalu dikelilingi
+          hal-hal baik, orang-orang tulus, dan banyak alasan
+          untuk tersenyum.
+        </p>
+        <p>
+          Semoga apa yang kamu impikan satu per satu bisa
+          tercapai. Kalau ada hari yang berat, semoga kamu
+          tetap ingat kalau kamu sudah melewati banyak hal
+          sampai sejauh ini. Proud of you!
+        </p>
+        <p>
+          Makasih ya sudah jadi bagian dari cerita masa SMA-ku.
+          Semoga pertemanan kita tetap baik, banyak cerita
+          lucu yang bisa dikenang, dan semoga kita sama-sama
+          sukses dengan jalan masing-masing.
+        </p>
+        <p>
+          Stay pretty, stay kind, stay iconic.
+          Jangan lupa bahagia, jangan kebanyakan overthinking,
+          dan jangan lupa traktirannya. WKWKWK 
+        </p>
+        <strong>With love, manusia imut nyaww miaww. 💙</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">🧠 Friendship quiz!</h2>
+    <p class="section-desc">
+      Tes kecil untuk merayakan pertemanan kita.
+      Santai, ini bukan ujian sekolah. 
+    </p>
+
+    <div class="interactive-box">
+      <div class="progress"><div id="quizProgress"></div></div>
+      <div id="quizArea">
+        <div class="question" id="questionText">
+          Siapa yang paling wajib bahagia hari ini?
+        </div>
+
+        <div class="answers" id="answers">
+          <button class="answer" onclick="answerQuiz(0)">A. Guru matematika</button>
+          <button class="answer" onclick="answerQuiz(1)">B. Kamu yang ulang tahun! 🩵</button>
+          <button class="answer" onclick="answerQuiz(2)">C. Papi Daen</button>
+        </div>
+      </div>
+      <div id="quizFeedback"></div>
+      <button class="pill-btn hidden" id="nextQuiz" onclick="nextQuestion()">
+        Next question →
+      </button>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">💗 Things you deserve</h2>
+    <p class="section-desc">
+      Beberapa hal yang semoga selalu datang ke hidupmu.
+    </p>
+
+    <div class="reasons">
+      <div class="reason"><span>🌷</span><strong>Genuine happiness</strong><br>Bahagia yang nggak harus dibuat-buat.</div>
+      <div class="reason"><span>🦋</span><strong>Beautiful growth</strong><br>Tumbuh dengan caramu sendiri.</div>
+      <div class="reason"><span>💎</span><strong>Good people</strong><br>Orang-orang yang menghargai kamu.</div>
+      <div class="reason"><span>🌈</span><strong>Dreams come true</strong><br>Semoga banyak pintu baik terbuka.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">🔮 Your birthday fortune</h2>
+    <p class="section-desc">
+      Pencet tombolnya dan lihat ramalan keberuntungan
+      kamu di umur 18. Ini ramalan abal-abal tapi amin! 
+    </p>
+
+    <div class="interactive-box">
+      <span class="big-emoji" id="fortuneEmoji">🔮</span>
+      <p id="fortuneText" class="sub">
+        Your future is loading...
+      </p>
+      <button class="pill-btn primary" onclick="fortune()">
+        Reveal my destiny ✨
+      </button>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="interactive-box">
+      <span class="big-emoji">🩵</span>
+      <h2 class="section-title">One last thing...</h2>
+      <p class="message">
+        Hari ini kamu bukan cuma bertambah umur.
+        Kamu juga memulai bab baru yang penuh kemungkinan.
+        Semoga bab ini jadi salah satu yang paling indah.
+      </p>
+      <button class="pill-btn primary" onclick="finalSurprise()">
+        Click for the final surprise 🎉
+      </button>
+    </div>
+  </section>
+
+  <footer>
+    Made with 💙, a little chaos, and lots of friendship.<br>
+    SPECIAL ACCESS · YANG  PUNYA LINK AJA (katanya 🤫)<br>
+    Your friend, manusiaa imut nyaww miaww.
+  </footer>
+</main>
+
+<!-- POP-UP -->
+<div class="modal" id="modal" onclick="closeOutside(event)">
+  <div class="modal-card">
+    <span class="big-emoji" id="modalEmoji">🎁</span>
+    <h2 id="modalTitle">Surprise!</h2>
+    <p id="modalText"></p>
+    <button class="pill-btn primary" onclick="closeModal()">
+      Awww, okay! 🩵
+    </button>
+  </div>
+</div>
+
+<script>
+/* BINTANG DI LATAR */
+const starContainer = document.getElementById('stars');
+
+for (let i = 0; i < 45; i++) {
+  const star = document.createElement('span');
+  star.className = 'star';
+  star.textContent = ['✦','✧','·','✶'][Math.floor(Math.random()*4)];
+  star.style.left = Math.random()*100 + '%';
+  star.style.top = Math.random()*100 + '%';
+  star.style.fontSize = (8 + Math.random()*18) + 'px';
+  star.style.animationDelay = Math.random()*3 + 's';
+  starContainer.appendChild(star);
+}
+
+/* LOGIN RAHASIA */
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value.trim().toLowerCase();
+  const password = document.getElementById('password').value.trim();
+  const error = document.getElementById('error');
+
+  if (username === 'engine' && password === '1610') {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('birthdayScreen').style.display = 'block';
+
+    launchConfetti();
+    showToast('ACCESS GRANTED! Welcome, birthday GIGINN 🩵');
+
+    window.scrollTo({top:0, behavior:'smooth'});
+  } else {
+    error.textContent = 'Eits, salah password! Coba lagi ya, bestie 😭';
+    document.querySelector('.login-card').animate([
+      {transform:'translateX(0)'},
+      {transform:'translateX(-8px)'},
+      {transform:'translateX(8px)'},
+      {transform:'translateX(0)'}
+    ], {duration:300});
+  }
+});
+
+/* POP-UP HADIAH */
+const gifts = {
+  gift1: {
+    emoji:'🎁',
+    title:'Your first gift!',
+    text:'Hadiah pertama: doa terbaik buat kamu! Semoga rezeki lancar, hati tenang, sehat selalu, dan semua hal baik datang bertubi-tubi. Aamiin! 💙'
+  },
+  gift2: {
+    emoji:'🧸',
+    title:'Virtual teddy hug!',
+    text:'Kalau hari ini capek, istirahat ya. Kamu nggak harus selalu kuat setiap waktu. 🧸'
+  },
+  gift3: {
+    emoji:'💎',
+    title:'A little reminder',
+    text:'Jangan lupa menghargai dirimu sendiri. Stay iconic, GINESP3! 💎'
+  },
+  gift4: {
+    emoji:'🌷',
+    title:'Flowers for you',
+    text:'Semoga hidupmu dipenuhi hal-hal yang bikin kamu mekar. 🌷'
+  },
+  gift5: {
+    emoji:'💌',
+    title:'Secret message',
+    text:'Kamu harus selalu punya alasan untuk bahagia. Terima kasih sudah jadi bagian dari cerita masa SMA-ku. 💌'
+  },
+  gift6: {
+    emoji:'🌙',
+    title:'Make a wish',
+    text:'Tutup mata sebentar, pikirkan satu keinginanmu, lalu simpan baik-baik. Semoga suatu hari kamu bisa bilang: ternyata aku berhasil! 🌙'
+  }
+};
+
+function openModal(id) {
+  const gift = gifts[id];
+  document.getElementById('modalEmoji').textContent = gift.emoji;
+  document.getElementById('modalTitle').textContent = gift.title;
+  document.getElementById('modalText').textContent = gift.text;
+  document.getElementById('modal').classList.add('show');
+  launchConfetti(22);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+function closeOutside(event) {
+  if (event.target.id === 'modal') closeModal();
+}
+
+/* SURAT */
+function toggleLetter() {
+  const letter = document.getElementById('letterContent');
+  letter.classList.toggle('hidden');
+
+  if (!letter.classList.contains('hidden')) {
+    launchConfetti(12);
+    showToast('A letter, just for you 💌');
+  }
+}
+
+/* KUE ULANG TAHUN */
+let candlesBlown = false;
+
+function blowCandles() {
+  const cake = document.getElementById('cake');
+
+  if (!candlesBlown) {
+    candlesBlown = true;
+    cake.textContent = '🍰';
+    document.getElementById('cakeTitle').textContent = 'YAY! Make it happen! 🎉';
+    document.getElementById('cakeText').textContent =
+      'Lilin berhasil ditiup! Semoga semua harapan baikmu terwujud. 🩵';
+    launchConfetti(70);
+    showToast('WISH SENT TO THE UNIVERSE ✨');
+  } else {
+    cake.textContent = '🎂';
+    document.getElementById('cakeTitle').textContent = 'One more slice?';
+    document.getElementById('cakeText').textContent =
+      'Kuenya boleh diulang, doanya juga boleh diulang! 💙';
+    candlesBlown = false;
+  }
+}
+
+/* KUIS INTERAKTIF */
+const questions = [
+  {
+    q:'Siapa yang paling wajib bahagia hari ini?',
+    a:['A. Guru matematika','B. Kamu yang ulang tahun! 🩵','C. PaPI Daen'],
+    correct:1,
+    feedback:'BENAR! Hari ini panggungnya milik kamu. 👑'
+  },
+  {
+    q:'Umur 18 itu artinya...',
+    a:['A. Boleh makin banyak mimpi','B. Harus jadi robot','C. Dilarang ketawa'],
+    correct:0,
+    feedback:'YESS! Mimpi yang besar, langkah yang kecil, tetap jalan. 🦋'
+  },
+  {
+    q:'Apa yang harus dibawa ke chapter kehidupan baru?',
+    a:['A. Drama tiap hari','B. Keberanian dan harapan','C. Overthinking 24/7'],
+    correct:1,
+    feedback:'BETUL! Semoga kamu makin berani menghadapi hal baru. 🌷'
+  },
+  {
+    q:'Pesan terakhir untuk birthday girl?',
+    a:['A. Jangan lupa bahagia','B. Jangan lupa makan','C. Semuanya benar!'],
+    correct:2,
+    feedback:'PERFECT SCORE ENERGY! Semoga bahagia, sehat, dan kenyang. 😭💙'
+  }
+];
+
+let quizIndex = 0;
+let quizScore = 0;
+let answered = false;
+
+function renderQuestion() {
+  const q = questions[quizIndex];
+  answered = false;
+
+  document.getElementById('questionText').textContent = q.q;
+  document.getElementById('quizProgress').style.width =
+    (quizIndex / questions.length * 100) + '%';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('nextQuiz').classList.add('hidden');
+
+  const answers = document.getElementById('answers');
+  answers.innerHTML = '';
+
+  q.a.forEach((answer, index) => {
+    const button = document.createElement('button');
+    button.className = 'answer';
+    button.textContent = answer;
+    button.onclick = () => answerQuiz(index);
+    answers.appendChild(button);
+  });
+}
+
+function answerQuiz(index) {
+  if (answered) return;
+  answered = true;
+
+  const q = questions[quizIndex];
+  const buttons = document.querySelectorAll('.answer');
+
+  if (index === q.correct) {
+    quizScore++;
+    document.getElementById('quizFeedback').textContent = q.feedback;
+    buttons[index].style.background = '#e4f8ed';
+  } else {
+    document.getElementById('quizFeedback').textContent =
+      'WKWKWK hampir! Jawaban yang benar: ' + q.a[q.correct];
+    buttons[index].style.background = '#fff0f5';
+    buttons[q.correct].style.background = '#e4f8ed';
+  }
+
+  document.getElementById('quizProgress').style.width =
+    ((quizIndex + 1) / questions.length * 100) + '%';
+
+  document.getElementById('nextQuiz').textContent =
+    quizIndex === questions.length - 1 ? 'See my score 🎉' : 'Next question →';
+
+  document.getElementById('nextQuiz').classList.remove('hidden');
+}
+
+function nextQuestion() {
+  if (quizIndex < questions.length - 1) {
+    quizIndex++;
+    renderQuestion();
+  } else {
+    document.getElementById('questionText').textContent =
+      'Your score: ' + quizScore + '/' + questions.length + ' 💙';
+
+    document.getElementById('answers').innerHTML =
+      '<p class="message">Apapun skornya, kamu tetap the birthday girl of the day! Semoga umur 18 ini penuh cerita seru. 🥳</p>';
+
+    document.getElementById('quizFeedback').textContent =
+      quizScore === questions.length
+        ? 'PERFECT! KAMU JUARANYA! 🏆'
+        : 'Quiz selesai! Terima kasih sudah bermain! 🩵';
+
+    document.getElementById('nextQuiz').classList.add('hidden');
+    launchConfetti(35);
+  }
+}
+
+/* RAMALAN ULTAH */
+const fortunes = [
+  ['🍀','Lucky days are coming! Semoga ada kabar baik yang bikin kamu senyum lebar.'],
+  ['💎','Your glow-up era starts now. Pelan-pelan, kamu sedang bertumbuh jadi versi terbaikmu.'],
+  ['🌷','More peace, less drama. Semoga hati kamu makin tenang dan dikelilingi orang tulus.'],
+  ['🌈','A dream is closer than you think. Terus usaha, ya. Kamu bisa menjadi seperti yang kamu impikan.'],
+  ['🦋','New chapter, new courage. Semoga hal-hal baik selalu menghampirimu.'],
+  ['💙','Your main character energy is unmatched. Semoga tahun ini penuh tawa dan momen indah.']
+];
+
+function fortune() {
+  const result = fortunes[Math.floor(Math.random()*fortunes.length)];
+  document.getElementById('fortuneEmoji').textContent = result[0];
+  document.getElementById('fortuneText').textContent = result[1];
+  launchConfetti(18);
+}
+
+/* KEJUTAN TERAKHIR */
+function finalSurprise() {
+  document.getElementById('modalEmoji').textContent = '🎉💙🎂';
+  document.getElementById('modalTitle').textContent = 'HAPPY LEVEL 18!';
+  document.getElementById('modalText').textContent =
+    'Selamat ulang tahun! Semoga umur 18 jadi chapter yang indah, penuh kesempatan baru, tawa, persahabatan, dan kebahagiaan. Jangan lupa tetap jadi diri sendiri. You deserve good things, birthday GINNNN! 🩵✨';
+
+  document.getElementById('modal').classList.add('show');
+  launchConfetti(100);
+}
+
+/* CONFETTI TANPA LIBRARY */
+function launchConfetti(amount = 45) {
+  const layer = document.getElementById('confettiLayer');
+  const emojis = ['💙','🩵','✨','🎉','🌷','⭐','🎀','💫'];
+
+  for (let i = 0; i < amount; i++) {
+    const piece = document.createElement('span');
+    piece.className = 'confetti';
+    piece.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    piece.style.left = Math.random()*100 + '%';
+    piece.style.animationDuration = (2 + Math.random()*3) + 's';
+    piece.style.animationDelay = Math.random()*.8 + 's';
+    layer.appendChild(piece);
+
+    setTimeout(() => piece.remove(), 6000);
+  }
+}
+
+/* TOAST */
+let toastTimer;
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+}
+
+/* MUSIK DARI BROWSER */
+let audioContext = null;
+let musicPlaying = false;
+let musicTimer = null;
+let noteIndex = 0;
+
+function toggleMusic() {
+  const btn = document.getElementById('musicBtn');
+
+  if (!musicPlaying) {
+    try {
+      audioContext = audioContext || new (window.AudioContext || window.webkitAudioContext)();
+      audioContext.resume();
+      musicPlaying = true;
+      btn.textContent = '♫ Music on';
+      playNotes();
+      showToast('Tiny birthday melody activated 🎶');
+    } catch (error) {
+      showToast('Browser kamu belum mendukung audio ini.');
+    }
+  } else {
+    musicPlaying = false;
+    clearTimeout(musicTimer);
+    btn.textContent = '♫ Play vibes';
+  }
+}
+
+function playNotes() {
+  if (!musicPlaying || !audioContext) return;
+
+  const melody = [523.25,659.25,783.99,659.25,587.33,698.46,783.99,1046.5];
+  const osc = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+
+  osc.type = 'sine';
+  osc.frequency.value = melody[noteIndex % melody.length];
+  gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.08, audioContext.currentTime + 0.03);
+  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.35);
+
+  osc.connect(gain);
+  gain.connect(audioContext.destination);
+
+  osc.start();
+  osc.stop(audioContext.currentTime + 0.36);
+
+  noteIndex++;
+  musicTimer = setTimeout(playNotes, 380);
+}
+
+/* MULAI KUIS */
+renderQuestion();
+</script>
+
+</body>
+</html>
